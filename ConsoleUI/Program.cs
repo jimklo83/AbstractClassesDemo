@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,21 +33,81 @@ namespace ConsoleUI
             */
 
             // Create a list of Vehicle called vehicles
-
+            var vehicles = new List<Vehicle>();
             /*
              * Create 4 instances: 1 Car, 1 Motorcycle, and then 2 instances of type Vehicle (use explicit typing) but use constuctors from derived classes
              * 
              * Set the properties with object initializer syntax
              */
+            var corvette = new Car()
+            {
+                Year = "1967",
+                Make = "Chevrolet",
+                Model = "Corvette",
+                HasTrunk = true,
+            };
+            
+
+            var harley = new Motorcycle() 
+            {
+                Year = "1985",
+                Make = "Harley Davidson",
+                Model = "Softail",
+                HasSideCart = false,
+            };
+
+
+            Vehicle elDorado = new Car()
+            {
+                Year = "1971",
+                Make = "Cadillac",
+                Model = "El Dorado",
+                HasTrunk = true
+            };
+
+            Vehicle ninja = new Motorcycle()
+            {
+                Year = "2017",
+                Make = "Kawasaki",
+                Model = "Ninja",
+                HasSideCart = false
+            };
 
             /*
              * Add the 4 vehicles to the list
              * Using a foreach loop iterate over each of the properties
              */
+            vehicles.Add(corvette);
+            vehicles.Add(harley);
+            vehicles.Add(elDorado);
+            vehicles.Add(ninja);
+
+            foreach (var vehicle in vehicles) 
+            {
+                Console.WriteLine($"A {vehicle.Year} {vehicle.Make} {vehicle.Model}.");
+                if (vehicle is Car car && car.HasTrunk)
+                {
+                    Console.WriteLine("It has a trunk.\n");
+                }
+                else if (vehicle is Motorcycle motorcycle && motorcycle.HasSideCart)
+                {
+                    Console.WriteLine("It has a side cart.\n");
+                }
+                else 
+                {
+                    Console.WriteLine("No additional features.\n");
+                }
+
+            }
 
             // Call each of the drive methods for one car and one motorcycle
 
-            #endregion            
+            corvette.DriveAbstract();
+            corvette.DriveVirtual();
+            harley.DriveAbstract();
+            harley.DriveVirtual();
+
+            #endregion  
             Console.ReadLine();
         }
     }
